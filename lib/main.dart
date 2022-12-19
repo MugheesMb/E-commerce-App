@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-     // onGenerateRoute: (settings) => generateRoute(settings),
+     onGenerateRoute: (settings) => generateRoute(settings),
       home: Scaffold(
         appBar: AppBar(
           title: Text('adsd'),
