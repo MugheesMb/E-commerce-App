@@ -3,6 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:last/auth/login.dart';
+import 'package:last/features/services/auth_service.dart';
 
 class Signup extends StatefulWidget {
   static const routeName = "/signup";
@@ -13,77 +14,20 @@ class Signup extends StatefulWidget {
 class _SignupState extends State<Signup> {
   final GlobalKey<FormState> _formKey = GlobalKey();
   var _isLoading = false;
-  // final Map<String, String> _authData = {
-  //   'name': '',
-  //   'email': '',
-  //   'password': '',
-  // };
-  // Future<void> _submit() async {
 
-  //   if (!_formKey.currentState!.validate()) {
-  //     // Invalid!
-  //     return;
-  //   }
-  //   _formKey.currentState!.save();
-  //   setState(() {
-  //     _isLoading = true;
-  //   });
-
-  //   try {
-  //     await locator.get<authProvider>().signup(
-  //           _authData['name'].toString(),
-  //           _authData['email'].toString(),
-  //           _authData['password'].toString(),
-  //         );
-  //     setState(() {
-  //       _isLoading = false;
-  //     });
-
-  //     locator.get<UserController>().initUser();
-  //     Navigator.push(
-  //       context,
-  //       MaterialPageRoute(builder: (context) => Quizhome()),
-  //     );
-  //   } on FirebaseAuthException catch (e) {
-  //     setState(() {
-  //       _isLoading = false;
-  //     });
-  //     if (e.code == 'weak-password') {
-  //       Fluttertoast.showToast(
-  //           msg: 'The password provided is too weak.',
-  //           toastLength: Toast.LENGTH_LONG,
-  //           gravity: ToastGravity.CENTER,
-  //           timeInSecForIosWeb: 1,
-  //           backgroundColor: Colors.red,
-  //           textColor: Colors.white,
-  //           fontSize: 16.0);
-  //     } else if (e.code == 'email-already-in-use') {
-  //       Fluttertoast.showToast(
-  //           msg: 'The account already exists for that email.',
-  //           toastLength: Toast.LENGTH_LONG,
-  //           gravity: ToastGravity.CENTER,
-  //           timeInSecForIosWeb: 1,
-  //           backgroundColor: Colors.red,
-  //           textColor: Colors.white,
-  //           fontSize: 16.0);
-  //     } else {
-  //       return print(e.message);
-  //     }
-  //   }
-  // }
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  //final AuthService authService = AuthService();
+  final AuthService authService = AuthService();
 
-  // void signUpUser() {
-  //   authService.signUpUser(
-  //       context: context,
-  //       email: _emailController.text,
-  //       password: _passwordController.text,
-  //       name: _nameController.text);
-  // }
+  void signUpUser() {
+    authService.signUpUser(
+        context: context,
+        email: _emailController.text,
+        password: _passwordController.text,
+        name: _nameController.text);
+  }
 
   @override
   void dispose() {
@@ -223,9 +167,9 @@ class _SignupState extends State<Signup> {
                       else
                         ElevatedButton(
                           onPressed: () {
-                            // if (_formKey.currentState!.validate()) {
-                            //   signUpUser();
-                            // }
+                            if (_formKey.currentState!.validate()) {
+                              signUpUser();
+                            }
                           },
                           child: Container(
                             width: 250,
